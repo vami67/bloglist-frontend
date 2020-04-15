@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -52,15 +53,16 @@ const App = () => {
     blogService.setToken(null)
   }
 
+  const blogFormRef = React.createRef()
+
   const addBlog = (event) => {
     event.preventDefault()
-    console.log(url)
-
+    blogFormRef.current.toggleVisibility()
     blogService.createBlog({ title: title, author: author, url: url })
       .then(returnedBlog => {
         console.log(returnedBlog)
         setBlogs(blogs.concat(returnedBlog))
-       
+
         setUrl('')
         setAuthor('')
         setTitle('')
@@ -68,33 +70,35 @@ const App = () => {
   }
 
   const blogForm = () => (
-    <form onSubmit={addBlog}>
-      <div>
-        title
+    <Togglable buttonLabel='new Blog'ref={blogFormRef}>
+      <form onSubmit={addBlog}>
+        <div>
+          title
         <input
-          value={title}
-          name="title"
-          onChange={({ target }) => setTitle(target.value)}
-        />
-      </div>
-      <div>
-        author
+            value={title}
+            name="title"
+            onChange={({ target }) => setTitle(target.value)}
+          />
+        </div>
+        <div>
+          author
         <input
-          value={author}
-          name="author"
-          onChange={({ target }) => setAuthor(target.value)}
-        />
-      </div>
-      <div>
-        url
+            value={author}
+            name="author"
+            onChange={({ target }) => setAuthor(target.value)}
+          />
+        </div>
+        <div>
+          url
         <input
-          value={url}
-          name="url"
-          onChange={({ target }) => setUrl(target.value)}
-        />
-      </div>
-      <button type="submit">save</button>
-    </form>
+            value={url}
+            name="url"
+            onChange={({ target }) => setUrl(target.value)}
+          />
+        </div>
+        <button type="submit">save</button>
+      </form>
+    </Togglable>
   )
 
   if (user === null) {
