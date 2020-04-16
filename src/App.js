@@ -43,7 +43,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.log("Wrong credentials")
+      console.log('Wrong credentials')
     }
   }
 
@@ -79,7 +79,7 @@ const App = () => {
           </div>
           <div>
             password
-           <input type="password" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
+            <input type="password" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
           </div>
           <button type="submit">login</button>
         </form>
