@@ -11,7 +11,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-
+  const [notification, setNotification] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -43,7 +43,8 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.log('Wrong credentials')
+      setNotification('Wrong credentials')
+      setTimeout(() => setNotification(``), 2000)
     }
   }
 
@@ -59,6 +60,8 @@ const App = () => {
     blogService.create(blog)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
+        setNotification(`a new Blog ${returnedBlog.title} by ${returnedBlog.author}`)
+        setTimeout(() => setNotification(``), 2000)
       })
   }
 
@@ -71,6 +74,7 @@ const App = () => {
   if (user === null) {
     return (
       <div>
+        {notification}
         <h2>Log in to application</h2>
         <form onSubmit={handleLogin}>
           <div>
@@ -89,19 +93,17 @@ const App = () => {
 
   return (
     <div>
+{notification}
       <h2>blogs</h2>
-      <p>{user.name} logged in <button onClick={() => handleLogout()}>logout</button></p>
+      <p>{user.name} logged in
+      <button onClick={() => handleLogout()}>logout</button>
+      </p>
 
       <h2>create new</h2>
       {blogForm()}
 
       {blogs.map(blog =>
-        <div key={blog.key}>
-          {blog.title}
-          <Togglable buttonLabel='view' buttonLabel1='hide' >
-            <Blog blog={blog} />
-          </Togglable>
-        </div>
+        <Blog key={blog.id} blog={blog} />
       )}
     </div>
   )

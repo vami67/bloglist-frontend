@@ -14,10 +14,12 @@ const Blog = ({ blog }) => {
     <div style={blogStyle}>
       {blog.title}
       <Togglable buttonLabel='view' buttonLabel1='hide'>
-          <div>{blog.url}</div>
-          <div>{blog.likes}</div>
-          <div>{blog.author}</div>
+
+        <div>{blog.url}</div>
+        <div>{blog.likes}</div>
+        <div>{blog.author}</div>
       </Togglable>
+
     </div>
   )
 
