@@ -84,6 +84,18 @@ const App = () => {
     )
   }
 
+  const removeBlog = async (blog) => {
+    if (window.confirm(`remove blog ${blog.title} by ${blog.author}?`)) {
+      const id = blog.id
+      await blogService.removeBlog(id)
+      setBlogs(
+        blogs
+          .filter(n => n.id !== id)
+          .sort((a, b) => a.likes - b.likes)
+      )
+    }
+  }
+
   if (user === null) {
     return (
       <div>
@@ -106,7 +118,6 @@ const App = () => {
 
   return (
     <div>
-      {JSON.stringify(blogs)}
       {notification}
       <h2>blogs</h2>
       <p>{user.name} logged in
@@ -120,7 +131,9 @@ const App = () => {
         <Blog
           key={blog.id}
           blog={blog}
-          handleVote={voteBlog} />
+          handleVote={voteBlog}
+          handleRemove={removeBlog}
+        />
       )}
     </div>
   )

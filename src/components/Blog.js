@@ -3,7 +3,8 @@ import Togglable from './Togglable'
 
 const Blog = ({
   blog,
-  handleVote
+  handleVote,
+  handleRemove
 }) => {
 
   const blogStyle = {
@@ -18,12 +19,24 @@ const Blog = ({
     <div style={blogStyle}>
       {blog.title}
       <Togglable buttonLabel='view' buttonLabel1='hide'>
-
-        <div>{blog.url}</div>
-        <div><p>likes: {blog.likes} <button onClick={() => handleVote(blog)}>vote</button></p></div>
-        <div>{blog.author}</div>
+        <div>
+          {blog.url}
+        </div>
+        <div>
+          likes: {blog.likes}
+          <button onClick={() => handleVote(blog)}>
+            vote
+          </button>
+        </div>
+        <div>
+          {blog.author}
+        </div>
+        <div>
+          <button onClick={() => handleRemove(blog)}>
+            remove
+          </button>
+        </div>
       </Togglable>
-
     </div>
   )
 
