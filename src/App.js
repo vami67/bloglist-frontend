@@ -76,11 +76,12 @@ const App = () => {
     const id = blog.id
     const likedBlog = { ...blog, likes: blog.likes + 1 }
     const returnedBlog = await blogService.update(id, likedBlog)
-    
-    setBlogs(blogs
-      .map(blog => blog.id !== id ? blog : returnedBlog)
-      .sort((a, b) => a.likes - b.likes))
-    
+
+    setBlogs(
+      blogs
+        .map(blog => blog.id !== id ? blog : returnedBlog)
+        .sort((a, b) => a.likes - b.likes)
+    )
   }
 
   if (user === null) {
