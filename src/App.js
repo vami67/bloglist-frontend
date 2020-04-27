@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs(blogs)
+      setBlogs(blogs.sort((a, b) => a.likes - b.likes))
     )
   }, [])
 
@@ -71,6 +71,18 @@ const App = () => {
     </Togglable>
   )
 
+  const voteBlog = async (blog) => {
+
+    const id = blog.id
+    const likedBlog = { ...blog, likes: blog.likes + 1 }
+    const returnedBlog = await blogService.update(id, likedBlog)
+    
+    setBlogs(blogs
+      .map(blog => blog.id !== id ? blog : returnedBlog)
+      .sort((a, b) => a.likes - b.likes))
+    
+  }
+
   if (user === null) {
     return (
       <div>
@@ -93,7 +105,8 @@ const App = () => {
 
   return (
     <div>
-{notification}
+      {JSON.stringify(blogs)}
+      {notification}
       <h2>blogs</h2>
       <p>{user.name} logged in
       <button onClick={() => handleLogout()}>logout</button>
@@ -103,7 +116,10 @@ const App = () => {
       {blogForm()}
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog
+          key={blog.id}
+          blog={blog}
+          handleVote={voteBlog} />
       )}
     </div>
   )
