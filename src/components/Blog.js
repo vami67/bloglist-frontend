@@ -17,7 +17,7 @@ const Blog = ({
 
   return (
     <div style={blogStyle}>
-      {blog.title}
+      {blog.title} {blog.author}
       <Togglable buttonLabel='view' buttonLabel1='hide'>
         <div>
           {blog.url}
@@ -27,9 +27,6 @@ const Blog = ({
           <button onClick={() => handleVote(blog)}>
             vote
           </button>
-        </div>
-        <div>
-          {blog.author}
         </div>
         <div>
           <button onClick={() => handleRemove(blog)}>

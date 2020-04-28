@@ -44,7 +44,7 @@ const App = () => {
       setPassword('')
     } catch (exception) {
       setNotification('Wrong credentials')
-      setTimeout(() => setNotification(``), 2000)
+      setTimeout(() => setNotification(''), 2000)
     }
   }
 
@@ -61,7 +61,7 @@ const App = () => {
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
         setNotification(`a new Blog ${returnedBlog.title} by ${returnedBlog.author}`)
-        setTimeout(() => setNotification(``), 2000)
+        setTimeout(() => setNotification(''), 2000)
       })
   }
 
@@ -120,8 +120,11 @@ const App = () => {
     <div>
       {notification}
       <h2>blogs</h2>
-      <p>{user.name} logged in
-      <button onClick={() => handleLogout()}>logout</button>
+      <p>
+        {user.name} logged in
+        <button onClick={() => handleLogout()}>
+          logout
+        </button>
       </p>
 
       <h2>create new</h2>

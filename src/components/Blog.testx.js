@@ -23,13 +23,7 @@ test('renders content', () => {
     'author'
   )
 
-  expect(component.container).toHaveTextContent(
-    'url ei saa tulostua'
-  )
-
-  expect(component.container).toHaveTextContent(
-    'likes ei saa tulostua'
-  )
+  
 
   component.debug()
 
