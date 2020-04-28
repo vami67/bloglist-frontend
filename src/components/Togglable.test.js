@@ -25,12 +25,7 @@ describe('<Togglable />', () => {
     )
   })
 
-  test('renders its children', () => {
-    expect(
-      component.container.querySelector('.testDiv')
-    ).toBeDefined()
-  })
-
+  
   test('at start the url and likes are not displayed', () => {
     const div = component.container.querySelector('.togglableContent')
     expect(div).toHaveStyle('display: none')
