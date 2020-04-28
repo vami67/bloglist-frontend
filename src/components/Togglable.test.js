@@ -63,8 +63,7 @@ describe('<Togglable />', () => {
     expect(div).not.toHaveTextContent(
       'author'
     )
-
-    //component.debug()
+    component.debug()
   })
 
 
