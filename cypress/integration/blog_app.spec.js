@@ -18,11 +18,17 @@ describe('Blog app', function () {
 
   describe('Login', function () {
     it('succeeds with correct credentials', function () {
-      // ...
+      cy.get('#username').type('root')
+      cy.get('#password').type('String')
+      cy.get('#login-button').click()
+      cy.contains('Mika Vahlberg logged in')
     })
 
     it('fails with wrong credentials', function () {
-      // ...
+      cy.get('#username').type('wrong')
+      cy.get('#password').type('credentials')
+      cy.get('#login-button').click()
+      cy.contains('Wrong credentials')
     })
   })
 })

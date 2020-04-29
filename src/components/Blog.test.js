@@ -28,7 +28,6 @@ describe('<Blog />', () => {
     const button = component.getByText('vote')
     fireEvent.click(button)
     fireEvent.click(button)
-    
     expect(voteBlog.mock.calls).toHaveLength(2)
     //component.debug()
   })

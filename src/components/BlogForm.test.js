@@ -7,14 +7,6 @@ import BlogForm from './BlogForm'
 describe('<BlogForm />', () => {
 
   test('form is submitted with correct values to callback function', () => {
-
-    const blog = {
-      title: 'title',
-      author: 'author',
-      url: 'url',
-      likes: 0
-    }
-
     const addBlog = jest.fn()
 
     const component = render(
@@ -43,12 +35,9 @@ describe('<BlogForm />', () => {
 
     expect(addBlog.mock.calls).toHaveLength(1)
     console.log(addBlog.mock.calls)
-    
     expect(addBlog.mock.calls[0][0]['title']).toBe('this is title')
     expect(addBlog.mock.calls[0][0]['author']).toBe('this is author')
     expect(addBlog.mock.calls[0][0]['url']).toBe('this is url')
-    
-
     component.debug()
   })
 
