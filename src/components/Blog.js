@@ -18,13 +18,13 @@ const Blog = ({
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
-      <Togglable buttonLabel='view' buttonLabel1='hide'>
+      <Togglable  buttonLabel='view' buttonLabel1='hide'>
         <div>
           {blog.url}
         </div>
         <div>
           likes: {blog.likes}
-          <button onClick={() => handleVote(blog)}>
+          <button id="like-button" onClick={() => handleVote(blog)}>
             vote
           </button>
         </div>

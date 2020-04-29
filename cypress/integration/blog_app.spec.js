@@ -41,7 +41,7 @@ describe('Blog app', function () {
       cy.contains('Mika Vahlberg logged in')
     })
 
-    it('A blog can be created', function() {
+    it('A blog can be created and liked', function() {
       cy.get('#open-toggle').click()
       cy.get('#title').type('This blog is added by cypress test suite automatically')
       cy.get('#author').type('author')
@@ -49,6 +49,14 @@ describe('Blog app', function () {
       cy.get('#create').click()
       cy.contains('This blog is added by cypress test suite automatically')
       // ...
+      cy.contains('view').click()
+      cy.get('#like-button').click()
+      cy.contains('likes: 1')
+      
     })
+
+    
+
+    
   })
 })
