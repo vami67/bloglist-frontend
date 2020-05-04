@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -11,7 +12,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -28,6 +29,11 @@ const App = () => {
     }
   }, [])
 
+  const notifyWith = (message, type = 'success') => {
+    setNotification({message, type})
+    setTimeout(() => setNotification(null), 2000)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -43,8 +49,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setNotification('Wrong credentials')
-      setTimeout(() => setNotification(''), 2000)
+      notifyWith('Wrong credentials', 'error')
     }
   }
 
@@ -60,8 +65,8 @@ const App = () => {
     blogService.create(blog)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNotification(`a new Blog ${returnedBlog.title} by ${returnedBlog.author}`)
-        setTimeout(() => setNotification(''), 2000)
+        notifyWith(`a new Blog ${returnedBlog.title} by ${returnedBlog.author}`, 'success' )
+
       })
   }
 
@@ -99,7 +104,8 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-        {notification}
+        <Notification notification={notification} />
+
         <h2>Log in to application</h2>
         <form onSubmit={handleLogin}>
           <div>
@@ -118,7 +124,8 @@ const App = () => {
 
   return (
     <div>
-      {notification}
+      <Notification notification={notification} />
+
       <h2>blogs</h2>
       <p>
         {user.name} logged in
